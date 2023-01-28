@@ -4,8 +4,10 @@ import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
 import { useStateContext } from "../contexts/ContextProvider";
+import { listDashboards } from "./data/dashboards";
+import { tab } from "@syncfusion/ej2-react-grids";
 
-const Sidebar = () => {
+const Sidebar = ({option, checkBoxes, setCheckBoxes, dashboards, setDashboards}) => {
   const { currentColor, activeMenu, setActiveMenu, screenSize } =
     useStateContext();
 
@@ -42,27 +44,27 @@ const Sidebar = () => {
             </TooltipComponent>
           </div>
           {/* SIDE BAR CONTENT */}
-          <div className="mt-10 ">
-            <form action="">
-              <label>
-                title
-                <input type="checkbox" />
-              </label>
-              <br />
-              <label>
-                Pareto Analysis <input type="checkbox" />
-              </label>
-              <br />
-              <label>
-                Spend Trend by Spend Category <input type="checkbox" />
-              </label>
-              <br />
-              <label>
-                Months <input type="checkbox" />
-              </label>
-              <br />
-              <input type="submit" value="save" />
-            </form>
+          <div className="flex flex-col mt-10 gap-2">
+            {listDashboards.find(
+                  (dashboard) => dashboard.option === option
+                ).tableau.map(tableauDashboard=>(
+                  <div className="flex gap-2" key={tableauDashboard.title}>
+                    <label htmlFor="">{tableauDashboard.title}</label>
+                    <input type="checkbox" name="" id="" checked={checkBoxes.includes(tableauDashboard.title)} value={tableauDashboard.title} onChange={(e)=>{
+                      if(checkBoxes.includes(tableauDashboard.title)){
+                        setCheckBoxes([...checkBoxes.filter(checkbox=>checkbox !== tableauDashboard.title)])
+                        setDashboards(
+                          listDashboards.find(dashboards=> dashboards.option === option).tableau.filter((dash) => [...checkBoxes.filter(checkbox=>checkbox !== tableauDashboard.title)].includes(dash.title))
+                        );
+                      }else{
+                        setCheckBoxes([...checkBoxes,tableauDashboard.title])
+                        setDashboards(
+                          listDashboards.find(dashboards=> dashboards.option === option).tableau.filter((dash) => [...checkBoxes,tableauDashboard.title].includes(dash.title))
+                        );
+                      }
+                      }}/>
+                  </div>
+                ))}
           </div>
         </>
       )}

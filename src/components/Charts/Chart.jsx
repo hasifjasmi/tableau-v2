@@ -38,7 +38,7 @@ export default function Chart({
                 setDashboards(
                   dashboards.filter((dash) => dash.link !== dashboard.link)
                 );
-                console.log(dashboard.link);
+                // console.log(dashboard.link);
               }}
               className="btn btn-square align-items-right"
             >
