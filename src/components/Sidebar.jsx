@@ -51,17 +51,20 @@ const Sidebar = ({
           </div>
           {/* SIDE BAR CONTENT */}
           <div className="flex flex-col mt-10 gap-2">
-            <h1 className="font-bold text-xl border-2 border-black w-60 pl-2 mr-4">
-              Charts
+            <h1 className="mt-16 font-bold text-xl border-2 border-white border-b-black w-60 pl-2 mr-4 text-center">
+              Display Charts
             </h1>
 
             {listDashboards
               .find((dashboard) => dashboard.option === option)
               .tableau.map((tableauDashboard) => (
                 <div className="flex gap-2" key={tableauDashboard.title}>
-                  <label htmlFor="">{tableauDashboard.title}</label>
+                  <label htmlFor="" className="text-gray-900">
+                    {tableauDashboard.title}
+                  </label>
                   <input
                     type="checkbox"
+                    className="w-5"
                     name=""
                     id=""
                     checked={checkBoxes.includes(tableauDashboard.title)}

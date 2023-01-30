@@ -18,7 +18,7 @@ export const listDashboards = [
 			{
 				link: "https://public.tableau.com/views/2_16637263565920/Dashboard10?:language=en-US&:display_count=n&:origin=viz_share_link",
 				desc: "this is total spend trend",
-				title: "Spend Trends by Spend Category",
+				title: "Spend Trends",
 			},
 			// Spend by Month (checkbox)
 			{
