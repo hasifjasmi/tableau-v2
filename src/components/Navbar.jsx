@@ -50,7 +50,7 @@ const Navbar = () => {
       <div className="flex flex-col">
         <img className="pl-[4em]" src={logo} width={"300rem"} alt="Logo" />
         <button className="flex items-center p-2 md:ml-6 md:mr-6 relative">
-          <label className="font-bold text-lg pl-[2em]">Select Charts</label>
+          <label className="font-bold text-lg pl-[2em] text-gray-900">Select Charts</label>
           <NavButton
             title="Menu"
             customFunc={handleActiveMenu}
