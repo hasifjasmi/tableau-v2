@@ -7,7 +7,13 @@ import { useStateContext } from "../contexts/ContextProvider";
 import { listDashboards } from "./data/dashboards";
 import { tab } from "@syncfusion/ej2-react-grids";
 
-const Sidebar = ({option, checkBoxes, setCheckBoxes, dashboards, setDashboards}) => {
+const Sidebar = ({
+  option,
+  checkBoxes,
+  setCheckBoxes,
+  dashboards,
+  setDashboards,
+}) => {
   const { currentColor, activeMenu, setActiveMenu, screenSize } =
     useStateContext();
 
@@ -45,26 +51,56 @@ const Sidebar = ({option, checkBoxes, setCheckBoxes, dashboards, setDashboards})
           </div>
           {/* SIDE BAR CONTENT */}
           <div className="flex flex-col mt-10 gap-2">
-            {listDashboards.find(
-                  (dashboard) => dashboard.option === option
-                ).tableau.map(tableauDashboard=>(
-                  <div className="flex gap-2" key={tableauDashboard.title}>
-                    <label htmlFor="">{tableauDashboard.title}</label>
-                    <input type="checkbox" name="" id="" checked={checkBoxes.includes(tableauDashboard.title)} value={tableauDashboard.title} onChange={(e)=>{
-                      if(checkBoxes.includes(tableauDashboard.title)){
-                        setCheckBoxes([...checkBoxes.filter(checkbox=>checkbox !== tableauDashboard.title)])
+            <h1 className="font-bold text-xl border-2 border-black w-60 pl-2 mr-4">
+              Charts
+            </h1>
+
+            {listDashboards
+              .find((dashboard) => dashboard.option === option)
+              .tableau.map((tableauDashboard) => (
+                <div className="flex gap-2" key={tableauDashboard.title}>
+                  <label htmlFor="">{tableauDashboard.title}</label>
+                  <input
+                    type="checkbox"
+                    name=""
+                    id=""
+                    checked={checkBoxes.includes(tableauDashboard.title)}
+                    value={tableauDashboard.title}
+                    onChange={(e) => {
+                      if (checkBoxes.includes(tableauDashboard.title)) {
+                        setCheckBoxes([
+                          ...checkBoxes.filter(
+                            (checkbox) => checkbox !== tableauDashboard.title
+                          ),
+                        ]);
                         setDashboards(
-                          listDashboards.find(dashboards=> dashboards.option === option).tableau.filter((dash) => [...checkBoxes.filter(checkbox=>checkbox !== tableauDashboard.title)].includes(dash.title))
+                          listDashboards
+                            .find((dashboards) => dashboards.option === option)
+                            .tableau.filter((dash) =>
+                              [
+                                ...checkBoxes.filter(
+                                  (checkbox) =>
+                                    checkbox !== tableauDashboard.title
+                                ),
+                              ].includes(dash.title)
+                            )
                         );
-                      }else{
-                        setCheckBoxes([...checkBoxes,tableauDashboard.title])
+                      } else {
+                        setCheckBoxes([...checkBoxes, tableauDashboard.title]);
                         setDashboards(
-                          listDashboards.find(dashboards=> dashboards.option === option).tableau.filter((dash) => [...checkBoxes,tableauDashboard.title].includes(dash.title))
+                          listDashboards
+                            .find((dashboards) => dashboards.option === option)
+                            .tableau.filter((dash) =>
+                              [...checkBoxes, tableauDashboard.title].includes(
+                                dash.title
+                              )
+                            )
                         );
                       }
-                      }}/>
-                  </div>
-                ))}
+                    }}
+                  />
+                </div>
+              ))}
           </div>
         </>
       )}

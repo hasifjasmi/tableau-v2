@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { Navbar, Footer, Sidebar } from "./components";
 import { View } from "./pages";
 import "./App.css";
@@ -10,7 +10,7 @@ import { listDashboards } from "./components/data/dashboards";
 
 const App = () => {
 	const { currentMode, activeMenu } = useStateContext();
-
+	const [parent] = useAutoAnimate();
 	const [option, setOption] = useState(1);
 	const [checkBoxes, setCheckBoxes] = useState(
 		listDashboards
@@ -30,7 +30,7 @@ const App = () => {
 						style={{ zIndex: "1000" }}
 					></div>
 					{activeMenu ? (
-						<div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white ">
+						<div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white" ref={parent}>
 							<Sidebar
 								option={option}
 								checkBoxes={checkBoxes}
@@ -40,7 +40,7 @@ const App = () => {
 							/>
 						</div>
 					) : (
-						<div className="w-0 dark:bg-secondary-dark-bg">
+						<div className="w-0 dark:bg-secondary-dark-bg" ref={parent}>
 							<Sidebar
 								option={option}
 								checkBoxes={checkBoxes}
