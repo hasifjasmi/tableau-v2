@@ -2,10 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { MdOutlineCancel } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
-
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useStateContext } from "../contexts/ContextProvider";
 import { listDashboards } from "./data/dashboards";
-import { tab } from "@syncfusion/ej2-react-grids";
 
 const Sidebar = ({
   option,
@@ -17,17 +16,12 @@ const Sidebar = ({
   const { currentColor, activeMenu, setActiveMenu, screenSize } =
     useStateContext();
 
+  const [parent] = useAutoAnimate();
   const handleCloseSideBar = () => {
     if (activeMenu !== undefined && screenSize <= 900) {
       setActiveMenu(false);
     }
   };
-
-  const activeLink =
-    "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg  text-white  text-md m-2";
-  const normalLink =
-    "flex items-center gap-5 pl-4 pt-3 pb-2.5 rounded-lg text-md text-gray-700 dark:text-gray-200 dark:hover:text-black hover:bg-light-gray m-2";
-
   return (
     <div className="ml-3 h-screen md:overflow-hidden overflow-auto md:hover:overflow-auto pb-10">
       {activeMenu && (
@@ -50,7 +44,7 @@ const Sidebar = ({
             </TooltipComponent>
           </div>
           {/* SIDE BAR CONTENT */}
-          <div className="flex flex-col mt-10 gap-2">
+          <div ref={parent} className="flex flex-col mt-10 gap-2">
             <h1 className="mt-16 font-bold text-xl border-2 border-white border-b-black w-60 pl-2 mr-4 text-center">
               Display Charts
             </h1>
